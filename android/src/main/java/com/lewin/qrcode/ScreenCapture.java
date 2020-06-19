@@ -69,6 +69,7 @@ public class ScreenCapture extends ReactContextBaseJavaModule {
             // 检查权限
             if (ContextCompat.checkSelfPermission(reactContext, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 permissionList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                this.startListenerCapture(promise, keys);
             } else {
 
                 this.startListenerCapture(promise, keys);
