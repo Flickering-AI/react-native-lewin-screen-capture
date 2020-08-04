@@ -11,8 +11,10 @@ import android.os.Build;
 import android.os.Environment;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Base64;
-import android.util.Log;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
@@ -44,6 +46,7 @@ public class ScreenCapture extends ReactContextBaseJavaModule {
     private ReactApplicationContext reactContext;
 
     private ScreenCapturetListenManager manager;
+    private final Handler mainHandler = new Handler((Looper.getMainLooper()));
 
     private final static String path = "/screen-capture/";
 
@@ -90,7 +93,7 @@ public class ScreenCapture extends ReactContextBaseJavaModule {
     @ReactMethod
     public void stopListener(final Promise promise) {
         try{
-            getCurrentActivity().runOnUiThread(new Runnable() {
+            mainHandler.post(new Runnable() {
                 @Override
                 public void run() {
                     if (manager != null) {
@@ -142,8 +145,8 @@ public class ScreenCapture extends ReactContextBaseJavaModule {
 
 
     private void startListenerCapture(final Promise promise, final String[] keywords) {
-        try{
-            getCurrentActivity().runOnUiThread(new Runnable() {
+        try {
+            mainHandler.post(new Runnable() {
                 @Override
                 public void run() {
                     //此时已在主线程中，可以更新UI了
@@ -169,8 +172,6 @@ public class ScreenCapture extends ReactContextBaseJavaModule {
             ex.printStackTrace();
             promise.reject("500", ex.getMessage());
         }
-
-
     }
 
     /**
