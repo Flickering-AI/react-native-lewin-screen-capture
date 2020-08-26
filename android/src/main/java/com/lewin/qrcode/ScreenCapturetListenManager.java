@@ -113,7 +113,7 @@ public class ScreenCapturetListenManager {
 
         // 创建内容观察者
         mInternalObserver = new MediaContentObserver(MediaStore.Images.Media.INTERNAL_CONTENT_URI, mUiHandler);
-        mExternalObserver = new MediaContentObserver(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, mUiHandler);
+//         mExternalObserver = new MediaContentObserver(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, mUiHandler);
 
         // 注册内容观察者
         mContext.getContentResolver().registerContentObserver(
@@ -121,11 +121,11 @@ public class ScreenCapturetListenManager {
                 false,
                 mInternalObserver
         );
-        mContext.getContentResolver().registerContentObserver(
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                false,
-                mExternalObserver
-        );
+//         mContext.getContentResolver().registerContentObserver(
+//                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+//                 false,
+//                 mExternalObserver
+//         );
     }
 
     /**
