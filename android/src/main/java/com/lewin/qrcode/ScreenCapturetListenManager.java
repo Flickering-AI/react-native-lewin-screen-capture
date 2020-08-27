@@ -115,15 +115,16 @@ public class ScreenCapturetListenManager {
         mInternalObserver = new MediaContentObserver(MediaStore.Images.Media.INTERNAL_CONTENT_URI, mUiHandler);
         mExternalObserver = new MediaContentObserver(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, mUiHandler);
 
+        boolean notifyForDescendants = Build.VERSION.SDK_INT > Build.VERSION_CODES.P ? true : false;
         // 注册内容观察者
         mContext.getContentResolver().registerContentObserver(
                 MediaStore.Images.Media.INTERNAL_CONTENT_URI,
-                Build.VERSION.SDK_INT > Build.VERSION_CODES.P ? true : false,
+                notifyForDescendants,
                 mInternalObserver
         );
         mContext.getContentResolver().registerContentObserver(
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                Build.VERSION.SDK_INT > Build.VERSION_CODES.P ? true : false,
+                notifyForDescendants,
                 mExternalObserver
         );
     }
