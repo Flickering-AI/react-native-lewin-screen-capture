@@ -118,14 +118,14 @@ public class ScreenCapturetListenManager {
         // 注册内容观察者
         mContext.getContentResolver().registerContentObserver(
                 MediaStore.Images.Media.INTERNAL_CONTENT_URI,
-                false,
+                Build.VERSION.SDK_INT > Build.VERSION_CODES.P ? true : false,
                 mInternalObserver
         );
-//         mContext.getContentResolver().registerContentObserver(
-//                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-//                 false,
-//                 mExternalObserver
-//         );
+        mContext.getContentResolver().registerContentObserver(
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                Build.VERSION.SDK_INT > Build.VERSION_CODES.P ? true : false,
+                mExternalObserver
+        );
     }
 
     /**
