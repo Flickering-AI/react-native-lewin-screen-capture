@@ -164,11 +164,11 @@ public class ScreenCapturetListenManager {
     private void handleMediaContentChange(Uri contentUri) {
         Cursor cursor = null;
         try {
-            // 数据改变时查询数据库中最后加入的一条数据
+            // 数据改变时查询数据库中最后加入的一条数据 同时限定添加时间小于等于当前时间戳 避免因为一些图片的时间戳大于当前设备时间导致判断错误(比如:时间调成未来几天,拍照然后把时间调回来这类骚操作)
             cursor = mContext.getContentResolver().query(
                     contentUri,
                     Build.VERSION.SDK_INT < 16 ? MEDIA_PROJECTIONS : MEDIA_PROJECTIONS_API_16,
-                    null,
+                    MediaStore.Images.ImageColumns.DATE_ADDED + " <= " + System.currentTimeMillis() / 1000,
                     null,
                     MediaStore.Images.ImageColumns.DATE_ADDED + " desc limit 1"
             );
